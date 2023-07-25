@@ -1,0 +1,22 @@
+How it works?
+1. Suppose that some application (such as Web browser or a mail reader) running in a user’s host needs to translate a hostname to an IP Address.
+2. The application will invoke the client side of the DNS, specifying the hostname that needs to be translated.
+3. DNS in the user’s host then takes over, sending a query message into the network. All DNS query and reply messages are sent within UDP datagrams to port 53.
+4. After a delay, ranging from milliseconds to seconds, DNS in the user’s host receives a DNS reply message that provides the desired mapping. This mapping is then passed to
+the invoking application.Thus, from the perspective of the invoking application in the user’s host, DNS is a black box providing a simple, straight forward translation service.
+
+DNS Server.java and DNS Client.java are the two programmes used to design theDNS working principle. UDP datagrams are used for all communication between the server and client.
+In Server program, InetAddress class is used. The java.net.InetAddress class provides methods to get the IP of any host name for example www.google.com, www.facebook.com etc.
+
+working casses:
+1.If the user enters a valid hostname, then the InetAddress will return the IP address of the corresponding hostname to the Server program. Then the Server program
+returns the IP Address to the Client program via UDP datagram.
+2.The second case is if the user enters a invalid hostname, the server program returns -1 to the client program via UDP datagram. The Client program will display “Not Found”.
+3.The third case is that if the server program is not running and the client program requests the IP address of the domain name. In the Client program, the time limit for
+which the response is received is 3 sec. If the server program does not respond for more than 3 sec, the Client program will display “Timeout Reached”.
+
+DNS caching
+1.DNS extensively exploits DNS caching in order to improve the delay performance
+2.The purpose of caching is to temporarily stored data in a location that results in improvements in performance and reliability for data requests.
+3.To reduce the DNS traffic and resolution time, a DNS cache is used. Once a hostname has been resolved the result is stored locally. The next time that address needs to be
+resolved, the result is taken from the cache instead of making another request.
